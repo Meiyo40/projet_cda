@@ -1,6 +1,6 @@
 <?php
 
-namespace Loicd\ProjetCda\model\dal;
+namespace App\model\dal;
 
 interface EntityDAOImpl
 {

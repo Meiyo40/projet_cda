@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Loicd\ProjetCda\model\database;
+namespace App\model\database;
 
 
 class Database {

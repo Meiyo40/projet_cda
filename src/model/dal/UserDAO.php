@@ -1,8 +1,11 @@
 <?php
 
 
-namespace Loicd\ProjetCda\model\dal;
+namespace App\model\dal;
 
+
+use App\model\entity\User;
+use Cassandra\Date;
 
 class UserDAO implements EntityDAOImpl
 {
@@ -25,6 +28,13 @@ class UserDAO implements EntityDAOImpl
     public function selectById(int $id)
     {
         // TODO: Implement selectById() method.
+        $user = new User();
+        $user->setId($id);
+        $user->setEmail("test@test.com");
+        $user->setPassword("coconuts");
+        $user->setBirthDate(new \DateTime());
+
+        return $user->ToString();
     }
 
     public function selectAll()

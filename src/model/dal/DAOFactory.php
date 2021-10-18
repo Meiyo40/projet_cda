@@ -1,26 +1,21 @@
 <?php
-
-
-namespace Loicd\ProjetCda\model\dal;
-
-
-use Loicd\ProjetCda\model\entity\Category;
+namespace App\model\dal;
 
 class DAOFactory
 {
-    public static function getUserDao() : UserDAO {
+    public static function getUserDAO() : UserDAO {
         return new UserDAO();
     }
 
-    public static function getPostDao() : PostDAO {
+    public static function getPostDAO() : PostDAO {
         return new PostDAO();
     }
 
-    public static function getTopicDao() : TopicDAO {
+    public static function getTopicDAO() : TopicDAO {
         return new TopicDAO();
     }
 
-    public static function getCategoryDao() : CategoryDAO {
+    public static function getCategoryDAO() : CategoryDAO {
         return new CategoryDAO();
     }
 }

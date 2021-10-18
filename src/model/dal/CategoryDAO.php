@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Loicd\ProjetCda\model\dal;
+namespace App\model\dal;
 
 
 class CategoryDAO

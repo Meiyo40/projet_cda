@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Loicd\ProjetCda\model\entity;
+namespace App\model\entity;
 
 
 class Category
