@@ -6,6 +6,10 @@ $router = new AltoRouter();
 
 $UserController = new \App\controller\UserController();
 
+$router->map("GET", "/user", function () use($UserController) {
+    $UserController->getAllUsers();
+}, "get_all_users");
+
 $router->map("GET", "/user/[i:id]", function ($id) use($UserController) {
     $UserController->getUser($id);
 }, "get_user");

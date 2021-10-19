@@ -39,3 +39,9 @@ Une fois le projet créé, j'ai commencé par structurer le code:
 A partir d'ici, le squelette de base est dessiné, je commence donc à implémenter le tout, en commençant par l'entité User et l'api correspondante.
 
 Il faut implémenter le DAO correspondant qui ira query la database.
+
+/! \ Les premières difficultés
+
+La question de l'implémentation dès le départ des relations se pose.
+J'ai jamais tenté de faire une approche propre du modèle relationnel en "vanilla", donc je me pose la question de comment faire ça proprement.
+Le DAO doit construire les objets depuis les données en BDD, dans le cas de l'utilisateur, il doit donc également query  pour récupérer la liste des Post/Topic où l'utilisateur est intervenu afin de "peupler" les propriétés $posts && $topics qui seront donc 2 tableaux contenant les id de Post et Topic lié à l'utilisateur.

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\model\dal;
+namespace App\model\dao;
 
 
 class CategoryDAO

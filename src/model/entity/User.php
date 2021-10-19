@@ -9,11 +9,10 @@ class User
     private int $id;
     private string $email;
     private string $password;
-    private \DateTime $birthDate;
+    private string $birthDate;
 
     private $posts;
-    private $topic;
-
+    private $topics;
 
     /**
      * @return int
@@ -64,17 +63,17 @@ class User
     }
 
     /**
-     * @return \DateTime
+     * @return string
      */
-    public function getBirthDate(): \DateTime
+    public function getBirthDate(): string
     {
         return $this->birthDate;
     }
 
     /**
-     * @param \DateTime $birthDate
+     * @param string $birthDate
      */
-    public function setBirthDate(\DateTime $birthDate): void
+    public function setBirthDate(string $birthDate): void
     {
         $this->birthDate = $birthDate;
     }
@@ -98,24 +97,25 @@ class User
     /**
      * @return mixed
      */
-    public function getTopic()
+    public function getTopics()
     {
-        return $this->topic;
+        return $this->topics;
     }
 
     /**
-     * @param mixed $topic
+     * @param mixed $topics
      */
-    public function setTopic($topic): void
+    public function setTopics($topics): void
     {
-        $this->topic = $topic;
+        $this->topics = $topics;
     }
 
     public function ToString()
     {
         return array("id" => $this->id,
             "email" => $this->email,
-            "password" => $this->password,
-            "birth_date" => $this->birthDate);
+            //"password" => $this->password,
+            "birth_date" => $this->birthDate//->format("d-m-Y")
+        );
     }
 }

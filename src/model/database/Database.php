@@ -3,23 +3,31 @@
 
 namespace App\model\database;
 
+use PDO;
 
-class Database {
-    private $host = "127.0.0.1";
-    private $database_name = "phpapidb";
-    private $username = "symfony";
-    private $password = "symfony";
+class Database{
+    private static $db_user = 'symfony';
+    private static $db_pwd = 'symfony';
+    private static $dsn = 'mysql:host=localhost;dbname=simple_crud_api';
 
-    public $conn;
+    private static $connection_db = null;
 
-    public function getConnection(){
-        $this->conn = null;
-        try{
-            $this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->database_name, $this->username, $this->password);
-            $this->conn->exec("set names utf8");
-        }catch(PDOException $exception){
-            echo "Database could not be connected: " . $exception->getMessage();
+    public static function connect(){
+        try {
+            self::$connection_db = new PDO(self::$dsn, self::$db_user, self::$db_pwd);
         }
-        return $this->conn;
+        catch (PDOException $e)
+        {
+            die($e->getMessage());
+        }
+        return self::$connection_db;
     }
+
+    public static function disconnect(){
+        self::$connection_db = null;
+    }
+
+
 }
+
+Database::connect();
