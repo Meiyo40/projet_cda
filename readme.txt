@@ -75,3 +75,17 @@ Si aucune relation, les champs seront seront des tableaux vide.
 On notera que par principe le GET /user/x ne renverra pas le champ password, même hash...
 
 A partir de là, l'API de base est je pense présente, on peut bien sûr aller beaucoup plus loin en s'assurant du standard sur les réponses http, la résilience avec l'utilisation de try/catch et des exceptions, un système d'auth/token/csrf, la sécurisation du contenu en passant avec du htmlpurifier etc...
+
+
+### Etape 5: Envoi
+
+A ce stade le système de base est là, ne sachant pas jusqu'où aller j'envois cette première étape, avec un fichier sql contenant la structure de la db (MySQL), si jamais vous voulez tester.
+J'ai developpé l'ensemble en utilisant Postman.
+
+//DATABASE MySQL
+Pas de .env, donc les informations base de données se trouvent src/database/Database.php
+
+Les routes:
+
+POST/GET --all /post | /category | /user | /topic
+PUT/DELETE/GET --unique /post/{id} | /category/{id} | /user/{id} | /topic/{id}
