@@ -52,7 +52,9 @@ class TopicDAO implements EntityDAOImpl
             $statement = $db->prepare(
                 "UPDATE `topic` SET `title` = ?, `category_id` = ? WHERE `id` = ?"
             );
+
             $result = $statement->execute(array($topic->getTitle(), $topic->getCategoryId(), $topic->getId()));
+
             if($result)
             {
                 return $topic->ToString();
@@ -91,6 +93,9 @@ class TopicDAO implements EntityDAOImpl
             $topic->setTitle($result["title"]);
             $topic->setUserId($result["user_id"]);
             $topic->setCategoryId($result["category_id"]);
+            $topic->setPosts(
+                DAOFactory::getPostDAO()->selectAllByTopicId($result["id"])
+            );
 
             return $topic;
         }
@@ -122,6 +127,9 @@ class TopicDAO implements EntityDAOImpl
                 $topic->setTitle($r["title"]);
                 $topic->setUserId($r["user_id"]);
                 $topic->setCategoryId($r["category_id"]);
+                $topic->setPosts(
+                    DAOFactory::getPostDAO()->selectAllByTopicId($r["id"])
+                );
 
                 array_push($topics, $topic->ToString());
             }
@@ -135,9 +143,9 @@ class TopicDAO implements EntityDAOImpl
     /**
      * Return all topic link to the given categoryId
      * @param int $categoryId
-     * @return array|bool
+     * @return array
      */
-    public function selectByCategoryId(int $categoryId)
+    public function selectByCategoryId(int $categoryId): array
     {
         $db = Database::connect();
 
@@ -155,6 +163,9 @@ class TopicDAO implements EntityDAOImpl
                 $topic->setTitle($r["title"]);
                 $topic->setUserId($r["user_id"]);
                 $topic->setCategoryId($r["category_id"]);
+                $topic->setPosts(
+                    DAOFactory::getPostDAO()->selectAllByTopicId($r["id"])
+                );
 
                 array_push($topics, $topic->ToString());
             }
@@ -162,7 +173,7 @@ class TopicDAO implements EntityDAOImpl
             return $topics;
         }
 
-        return false;
+        return array();
     }
 
     public function selectAll()

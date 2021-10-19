@@ -111,7 +111,7 @@ class PostDAO implements EntityDAOImpl
     /**
      * Return all the posts link to the given UserId
      * @param int $userId
-     * @return array|bool
+     * @return array
      */
     public function selectByUserId(int $userId)
     {
@@ -139,20 +139,20 @@ class PostDAO implements EntityDAOImpl
             return $posts;
         }
 
-        return false;
+        return array();
     }
 
     /**
      * Return all posts link to the given topic_id
-     * @param int $categoryId
-     * @return array|bool
+     * @param int $topicId
+     * @return array
      */
-    public function selectByCategoryId(int $categoryId)
+    public function selectAllByTopicId(int $topicId)
     {
         $db = Database::connect();
 
         $statement = $db->prepare("SELECT*FROM `post` WHERE `topic_id` = ?");
-        $statement->execute(array($categoryId));
+        $statement->execute(array($topicId));
         $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
 
         if(sizeof($result) > 0)
@@ -173,7 +173,7 @@ class PostDAO implements EntityDAOImpl
             return $posts;
         }
 
-        return false;
+        return array();
     }
 
     public function selectAll()

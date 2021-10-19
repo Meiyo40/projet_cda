@@ -115,7 +115,9 @@ class User
         return array("id" => $this->id,
             "email" => $this->email,
             //"password" => $this->password,
-            "birth_date" => $this->birthDate//->format("d-m-Y")
+            "birth_date" => $this->birthDate, //->format("d-m-Y")
+            "topics" => $this->topics,
+            "posts" => $this->posts
         );
     }
 }

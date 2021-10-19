@@ -95,6 +95,9 @@ class Topic
     public function ToString()
     {
         return array("id" => $this->id,
-            "title" => $this->title);
+            "title" => $this->title,
+            "user" => $this->userId,
+            "posts" => $this->posts
+        );
     }
 }

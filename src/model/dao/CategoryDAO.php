@@ -93,6 +93,9 @@ class CategoryDAO implements EntityDAOImpl
             $category = new Category();
             $category->setId($result["id"]);
             $category->setLabel($result["label"]);
+            $category->setTopics(
+                DAOFactory::getTopicDAO()->selectByCategoryId($result["id"])
+            );
 
             return $category;
         }
@@ -117,6 +120,9 @@ class CategoryDAO implements EntityDAOImpl
                 $category = new Category();
                 $category->setId($r["id"]);
                 $category->setLabel($r["label"]);
+                $category->setTopics(
+                    DAOFactory::getTopicDAO()->selectByCategoryId($r["id"])
+                );
 
                 array_push($categories, $category->ToString());
             }

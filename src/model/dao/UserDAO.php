@@ -94,6 +94,12 @@ class UserDAO implements EntityDAOImpl
             $user->setEmail($result["email"]);
             $user->setPassword($result["password"]);
             $user->setBirthDate($result["birth_date"]);
+            $user->setTopics(
+                DAOFactory::getTopicDAO()->selectByUserId($result["id"])
+            );
+            $user->setPosts(
+                DAOFactory::getPostDAO()->selectByUserId($result["id"])
+            );
 
             return $user;
         }
@@ -119,6 +125,12 @@ class UserDAO implements EntityDAOImpl
                 $user->setEmail($r["email"]);
                 $user->setPassword($r["password"]);
                 $user->setBirthDate($r["birth_date"]);
+                $user->setTopics(
+                    DAOFactory::getTopicDAO()->selectByUserId($r["id"])
+                );
+                $user->setPosts(
+                    DAOFactory::getPostDAO()->selectByUserId($r["id"])
+                );
 
                 array_push($users, $user->ToString());
             }

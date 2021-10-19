@@ -61,6 +61,8 @@ class Category
     public function ToString()
     {
         return array("id" => $this->id,
-            "label" => $this->label);
+            "label" => $this->label,
+            "topics" => $this->topics
+        );
     }
 }
