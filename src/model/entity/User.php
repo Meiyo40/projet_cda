@@ -11,8 +11,8 @@ class User
     private string $password;
     private string $birthDate;
 
-    private $posts;
-    private $topics;
+    private array $posts;
+    private array $topics;
 
     /**
      * @return int
@@ -81,7 +81,7 @@ class User
     /**
      * @return mixed
      */
-    public function getPosts()
+    public function getPosts(): array
     {
         return $this->posts;
     }
@@ -97,7 +97,7 @@ class User
     /**
      * @return mixed
      */
-    public function getTopics()
+    public function getTopics(): array
     {
         return $this->topics;
     }

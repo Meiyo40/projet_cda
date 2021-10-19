@@ -3,46 +3,46 @@
 namespace App\controller;
 
 use App\model\dao\DAOFactory;
-use App\model\dao\UserDAO;
+use App\model\dao\TopicDAO;
 
-class UserController
+class TopicController
 {
-    private UserDAO $userDAO;
+    private TopicDAO $topicDAO;
 
     public function __construct()
     {
-        $this->userDAO = DAOFactory::getUserDAO();
+        $this->topicDAO = DAOFactory::getTopicDAO();
     }
 
-    public function getUser($id)
+    public function getTopic($id)
     {
-        $user = $this->userDAO->selectById($id)->ToString();
-        if(!$user)
+        $topic = $this->topicDAO->selectById($id);
+        if(!$topic)
         {
             http_response_code(404);
-            echo "User not found";
+            echo "Topic not found";
         } else {
             http_response_code(200);
-            echo json_encode($user);
+            echo json_encode($topic->ToString());
         }
     }
 
-    public function getAllUsers()
+    public function getAllTopic()
     {
-        $users = $this->userDAO->selectAll();
-        if(!$users)
+        $topic = $this->topicDAO->selectAll();
+        if(!$topic)
         {
             http_response_code(404);
-            echo "Error while retrieving users data";
+            echo "Error while retrieving topics data";
         } else {
             http_response_code(200);
-            echo json_encode($users);
+            echo json_encode($topic);
         }
     }
 
-    public function postUser()
+    public function postTopic()
     {
-        $result = $this->userDAO->insert($_POST);
+        $result = $this->topicDAO->insert($_POST);
 
         if(!$result)
         {
@@ -58,38 +58,38 @@ class UserController
 
     }
 
-    public function putUser($id)
+    public function putTopic($id)
     {
         //NO PHP PUT METHOD, so, DIY, retrieve data string (from the put request) and convert to array
         $putData = json_decode(file_get_contents('php://input'), true);
         $putData["id"] = $id;
 
-        $user = $this->userDAO->update($putData);
+        $topic = $this->topicDAO->update($putData);
 
-        if(!$user)
+        if(!$topic)
         {
             http_response_code(404);
-            echo "Unable to update User: Invalid data";
+            echo "Unable to update Topic: Invalid data";
         } else {
             http_response_code(200);
             echo json_encode(
-                $user
+                $topic
             );
         }
 
 
     }
 
-    public function deleteUser($id)
+    public function deleteTopic($id)
     {
-        $user = $this->userDAO->delete($id);
-        if(!$user)
+        $topic = $this->topicDAO->delete($id);
+        if(!$topic)
         {
             http_response_code(404);
-            echo "User does not exist";
+            echo "Topic does not exist";
         } else {
             http_response_code(200);
-            echo "User deleted";
+            echo "Topic deleted";
         }
     }
 }

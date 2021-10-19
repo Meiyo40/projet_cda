@@ -2,47 +2,47 @@
 
 namespace App\controller;
 
+use App\model\dao\CategoryDAO;
 use App\model\dao\DAOFactory;
-use App\model\dao\UserDAO;
 
-class UserController
+class CategoryController
 {
-    private UserDAO $userDAO;
+    private CategoryDAO $categoryDAO;
 
     public function __construct()
     {
-        $this->userDAO = DAOFactory::getUserDAO();
+        $this->categoryDAO = DAOFactory::getCategoryDAO();
     }
 
-    public function getUser($id)
+    public function getCategory($id)
     {
-        $user = $this->userDAO->selectById($id)->ToString();
-        if(!$user)
+        $category = $this->categoryDAO->selectById($id)->ToString();
+        if(!$category)
         {
             http_response_code(404);
-            echo "User not found";
+            echo "Category not found";
         } else {
             http_response_code(200);
-            echo json_encode($user);
+            echo json_encode($category);
         }
     }
 
-    public function getAllUsers()
+    public function getAllCategory()
     {
-        $users = $this->userDAO->selectAll();
-        if(!$users)
+        $category = $this->categoryDAO->selectAll();
+        if(!$category)
         {
             http_response_code(404);
-            echo "Error while retrieving users data";
+            echo "Error while retrieving categories data";
         } else {
             http_response_code(200);
-            echo json_encode($users);
+            echo json_encode($category);
         }
     }
 
-    public function postUser()
+    public function createCategory()
     {
-        $result = $this->userDAO->insert($_POST);
+        $result = $this->categoryDAO->insert($_POST);
 
         if(!$result)
         {
@@ -58,38 +58,38 @@ class UserController
 
     }
 
-    public function putUser($id)
+    public function updateCategory($id)
     {
         //NO PHP PUT METHOD, so, DIY, retrieve data string (from the put request) and convert to array
         $putData = json_decode(file_get_contents('php://input'), true);
         $putData["id"] = $id;
 
-        $user = $this->userDAO->update($putData);
+        $category = $this->categoryDAO->update($putData);
 
-        if(!$user)
+        if(!$category)
         {
             http_response_code(404);
-            echo "Unable to update User: Invalid data";
+            echo "Unable to update Category: Invalid data";
         } else {
             http_response_code(200);
             echo json_encode(
-                $user
+                $category
             );
         }
 
 
     }
 
-    public function deleteUser($id)
+    public function deleteCategory($id)
     {
-        $user = $this->userDAO->delete($id);
-        if(!$user)
+        $category = $this->categoryDAO->delete($id);
+        if(!$category)
         {
             http_response_code(404);
-            echo "User does not exist";
+            echo "Category does not exist";
         } else {
             http_response_code(200);
-            echo "User deleted";
+            echo "Category deleted";
         }
     }
 }

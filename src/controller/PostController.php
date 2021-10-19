@@ -3,46 +3,46 @@
 namespace App\controller;
 
 use App\model\dao\DAOFactory;
-use App\model\dao\UserDAO;
+use App\model\dao\PostDAO;
 
-class UserController
+class PostController
 {
-    private UserDAO $userDAO;
+    private PostDAO $postDAO;
 
     public function __construct()
     {
-        $this->userDAO = DAOFactory::getUserDAO();
+        $this->postDAO = DAOFactory::getPostDAO();
     }
 
-    public function getUser($id)
+    public function getPost($id)
     {
-        $user = $this->userDAO->selectById($id)->ToString();
-        if(!$user)
+        $post = $this->postDAO->selectById($id)->ToString();
+        if(!$post)
         {
             http_response_code(404);
-            echo "User not found";
+            echo "Post not found";
         } else {
             http_response_code(200);
-            echo json_encode($user);
+            echo json_encode($post);
         }
     }
 
-    public function getAllUsers()
+    public function getAllPosts()
     {
-        $users = $this->userDAO->selectAll();
-        if(!$users)
+        $post = $this->postDAO->selectAll();
+        if(!$post)
         {
             http_response_code(404);
-            echo "Error while retrieving users data";
+            echo "Error while retrieving posts data";
         } else {
             http_response_code(200);
-            echo json_encode($users);
+            echo json_encode($post);
         }
     }
 
-    public function postUser()
+    public function createPost()
     {
-        $result = $this->userDAO->insert($_POST);
+        $result = $this->postDAO->insert($_POST);
 
         if(!$result)
         {
@@ -58,38 +58,38 @@ class UserController
 
     }
 
-    public function putUser($id)
+    public function putPost($id)
     {
         //NO PHP PUT METHOD, so, DIY, retrieve data string (from the put request) and convert to array
         $putData = json_decode(file_get_contents('php://input'), true);
         $putData["id"] = $id;
 
-        $user = $this->userDAO->update($putData);
+        $post = $this->postDAO->update($putData);
 
-        if(!$user)
+        if(!$post)
         {
             http_response_code(404);
-            echo "Unable to update User: Invalid data";
+            echo "Unable to update Post: Invalid data";
         } else {
             http_response_code(200);
             echo json_encode(
-                $user
+                $post
             );
         }
 
 
     }
 
-    public function deleteUser($id)
+    public function deletePost($id)
     {
-        $user = $this->userDAO->delete($id);
-        if(!$user)
+        $post = $this->postDAO->delete($id);
+        if(!$post)
         {
             http_response_code(404);
-            echo "User does not exist";
+            echo "Post does not exist";
         } else {
             http_response_code(200);
-            echo "User deleted";
+            echo "Post deleted";
         }
     }
 }
