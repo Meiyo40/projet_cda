@@ -42,7 +42,7 @@ class TopicDAO implements EntityDAOImpl
             $topic = $this->selectById($entity["id"]);
 
             if(!($topic instanceof Topic))
-                return "Unable to update Topic: Topic not found.";
+                return false; //N'existe pas, on return false au controller qui retournera un 404
 
             $topic->setTitle($entity["title"]);
             $topic->setCategoryId($entity["category_id"]);

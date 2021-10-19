@@ -44,7 +44,7 @@ class UserDAO implements EntityDAOImpl
             $user = $this->selectById($entity["id"]);
 
             if(!($user instanceof User))
-                return "Unable to update User: User not reachable.";
+                return false; //N'existe pas, on return false au controller qui retournera un 404
 
             $user->setEmail($entity["email"]);
             $user->setBirthDate($entity["birth_date"]);
@@ -118,7 +118,7 @@ class UserDAO implements EntityDAOImpl
                 $user->setId($r["id"]);
                 $user->setEmail($r["email"]);
                 $user->setPassword($r["password"]);
-                $user->setBirthDate(new \DateTime($r["birth_date"]));
+                $user->setBirthDate($r["birth_date"]);
 
                 array_push($users, $user->ToString());
             }

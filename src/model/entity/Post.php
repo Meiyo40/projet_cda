@@ -95,6 +95,8 @@ class Post
     {
         return array("id" => $this->id,
             "postDate" => $this->post_date,
-            "content" => $this->content);
+            "content" => $this->content,
+            "userId" => $this->userId,
+            "topicId" => $this->topicId);
     }
 }
