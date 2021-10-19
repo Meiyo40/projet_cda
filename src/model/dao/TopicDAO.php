@@ -137,7 +137,7 @@ class TopicDAO implements EntityDAOImpl
             return $topics;
         }
 
-        return false;
+        return array();
     }
 
     /**

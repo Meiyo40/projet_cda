@@ -67,3 +67,11 @@ Une fois compris le coup du file_get_contents -> json_decode, la gestion de la m
 Une fois l'API de la première entity (User) implémenté, tout est allé plus vite forcément, le code de base est là, il suffit ensuite de l'adapater aux différentes entités.
 A présent pour faire les choses bien, je devrais faire un système relationnel plus complexe, mais je ne suis pas certains d'avoir le temps de me le permettre donc je vais faire basic, l'objectif premier c'est que ça marche.
 De même, ca n'a pas été demandé, donc je vais me passer de faire un système d'authorization/authentication, si j'ai le temps je ferais simplement une clé API hardcoder (en url ?api=key) pour démontrer le concept.
+
+Une fois les différents DAO/Routes implémenté, j'ai ajouté les relations simple à l'API.
+Ainsi en faisant un GET User, contrairement à ce que j'avais dis au début, j'affiche les TopicS et PostS qui sont lié à l'utilisateur. (De même avec toutes les entités).
+Si aucune relation, les champs seront seront des tableaux vide.
+
+On notera que par principe le GET /user/x ne renverra pas le champ password, même hash...
+
+A partir de là, l'API de base est je pense présente, on peut bien sûr aller beaucoup plus loin en s'assurant du standard sur les réponses http, la résilience avec l'utilisation de try/catch et des exceptions, un système d'auth/token/csrf, la sécurisation du contenu en passant avec du htmlpurifier etc...
