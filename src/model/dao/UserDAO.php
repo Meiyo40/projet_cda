@@ -27,7 +27,11 @@ class UserDAO implements EntityDAOImpl
                 "INSERT INTO `user` (email, password, birth_date)
                             VALUES (?,?,?)"
             );
+
             $result = $statement->execute(array($user->getEmail(), $user->getPassword(), $user->getBirthDate()));
+            $statement->closeCursor();
+            Database::disconnect();
+
             if($result)
             {
                 $user->setId($db->lastInsertId());
@@ -55,7 +59,11 @@ class UserDAO implements EntityDAOImpl
             $statement = $db->prepare(
                 "UPDATE `user` SET `email` = ?, `password` = ?, `birth_date` = ? WHERE `id` = ?"
             );
+
             $result = $statement->execute(array($user->getEmail(), $user->getPassword(), $user->getBirthDate(), $user->getId()));
+            $statement->closeCursor();
+            Database::disconnect();
+
             if($result)
             {
                 return $user->ToString();
@@ -70,6 +78,8 @@ class UserDAO implements EntityDAOImpl
 
         $statement = $db->prepare("DELETE FROM `user` WHERE `id` = ?");
         $result = $statement->execute(array($id));
+        $statement->closeCursor();
+        Database::disconnect();
 
         if($result)
         {
@@ -86,6 +96,8 @@ class UserDAO implements EntityDAOImpl
         $statement = $db->prepare("SELECT*FROM `user` WHERE `id` = ?");
         $statement->execute(array($id));
         $result = $statement->fetch(\PDO::FETCH_ASSOC);
+        $statement->closeCursor();
+        Database::disconnect();
 
         if($result)
         {
@@ -114,6 +126,8 @@ class UserDAO implements EntityDAOImpl
         $statement = $db->prepare("SELECT*FROM `user`");
         $statement->execute();
         $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+        $statement->closeCursor();
+        Database::disconnect();
 
         if(sizeof($result) > 0)
         {

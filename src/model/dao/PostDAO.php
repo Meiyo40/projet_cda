@@ -29,6 +29,8 @@ class PostDAO implements EntityDAOImpl
             );
 
             $result = $statement->execute(array($post->getPostDate(), $post->getContent(), $post->getTopicId(), $post->getUserId()));
+            $statement->closeCursor();
+            Database::disconnect();
 
             if($result)
             {
@@ -60,6 +62,8 @@ class PostDAO implements EntityDAOImpl
             );
 
             $result = $statement->execute(array($post->getContent(), $post->getTopicId(), $post->getId()));
+            $statement->closeCursor();
+            Database::disconnect();
 
             if($result)
             {
@@ -75,6 +79,8 @@ class PostDAO implements EntityDAOImpl
 
         $statement = $db->prepare("DELETE FROM `post` WHERE `id` = ?");
         $result = $statement->execute(array($id));
+        $statement->closeCursor();
+        Database::disconnect();
 
         if($result)
         {
@@ -91,6 +97,8 @@ class PostDAO implements EntityDAOImpl
         $statement = $db->prepare("SELECT*FROM `post` WHERE `id` = ?");
         $statement->execute(array($id));
         $result = $statement->fetch(\PDO::FETCH_ASSOC);
+        $statement->closeCursor();
+        Database::disconnect();
 
         if($result)
         {
@@ -120,6 +128,8 @@ class PostDAO implements EntityDAOImpl
         $statement = $db->prepare("SELECT*FROM `post` WHERE `user_id` = ?");
         $statement->execute(array($userId));
         $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+        $statement->closeCursor();
+        Database::disconnect();
 
         if(sizeof($result) > 0)
         {
@@ -154,6 +164,8 @@ class PostDAO implements EntityDAOImpl
         $statement = $db->prepare("SELECT*FROM `post` WHERE `topic_id` = ?");
         $statement->execute(array($topicId));
         $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+        $statement->closeCursor();
+        Database::disconnect();
 
         if(sizeof($result) > 0)
         {
@@ -183,6 +195,8 @@ class PostDAO implements EntityDAOImpl
         $statement = $db->prepare("SELECT*FROM `post`");
         $statement->execute();
         $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+        $statement->closeCursor();
+        Database::disconnect();
 
         if(sizeof($result) > 0)
         {

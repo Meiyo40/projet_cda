@@ -26,6 +26,9 @@ class TopicDAO implements EntityDAOImpl
                             VALUES (?,?,?)"
             );
             $result = $statement->execute(array($topic->getTitle(), $topic->getUserId(), $topic->getCategoryId()));
+            $statement->closeCursor();
+            Database::disconnect();
+
             if($result)
             {
                 $topic->setId($db->lastInsertId());
@@ -54,6 +57,8 @@ class TopicDAO implements EntityDAOImpl
             );
 
             $result = $statement->execute(array($topic->getTitle(), $topic->getCategoryId(), $topic->getId()));
+            $statement->closeCursor();
+            Database::disconnect();
 
             if($result)
             {
@@ -69,6 +74,8 @@ class TopicDAO implements EntityDAOImpl
 
         $statement = $db->prepare("DELETE FROM `topic` WHERE `id` = ?");
         $result = $statement->execute(array($id));
+        $statement->closeCursor();
+        Database::disconnect();
 
         if($result)
         {
@@ -85,6 +92,8 @@ class TopicDAO implements EntityDAOImpl
         $statement = $db->prepare("SELECT*FROM `topic` WHERE `id` = ?");
         $statement->execute(array($id));
         $result = $statement->fetch(\PDO::FETCH_ASSOC);
+        $statement->closeCursor();
+        Database::disconnect();
 
         if($result)
         {
@@ -116,6 +125,8 @@ class TopicDAO implements EntityDAOImpl
         $statement = $db->prepare("SELECT*FROM `topic` WHERE `user_id` = ?");
         $statement->execute(array($userId));
         $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+        $statement->closeCursor();
+        Database::disconnect();
 
         if(sizeof($result) > 0)
         {
@@ -152,6 +163,8 @@ class TopicDAO implements EntityDAOImpl
         $statement = $db->prepare("SELECT*FROM `topic` WHERE `category_id` = ?");
         $statement->execute(array($categoryId));
         $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+        $statement->closeCursor();
+        Database::disconnect();
 
         if(sizeof($result) > 0)
         {
@@ -183,6 +196,8 @@ class TopicDAO implements EntityDAOImpl
         $statement = $db->prepare("SELECT*FROM `topic`");
         $statement->execute();
         $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+        $statement->closeCursor();
+        Database::disconnect();
 
         if(sizeof($result) > 0)
         {

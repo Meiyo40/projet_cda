@@ -25,6 +25,8 @@ class CategoryDAO implements EntityDAOImpl
             );
 
             $result = $statement->execute(array($category->getLabel()));
+            $statement->closeCursor();
+            Database::disconnect();
 
             if($result)
             {
@@ -55,6 +57,8 @@ class CategoryDAO implements EntityDAOImpl
             );
 
             $result = $statement->execute(array($category->getLabel(), $category->getId()));
+            $statement->closeCursor();
+            Database::disconnect();
 
             if($result)
             {
@@ -70,6 +74,8 @@ class CategoryDAO implements EntityDAOImpl
 
         $statement = $db->prepare("DELETE FROM `category` WHERE `id` = ?");
         $result = $statement->execute(array($id));
+        $statement->closeCursor();
+        Database::disconnect();
 
         if($result)
         {
@@ -87,6 +93,8 @@ class CategoryDAO implements EntityDAOImpl
         $statement->execute(array($id));
 
         $result = $statement->fetch(\PDO::FETCH_ASSOC);
+        $statement->closeCursor();
+        Database::disconnect();
 
         if($result)
         {
@@ -110,6 +118,8 @@ class CategoryDAO implements EntityDAOImpl
         $statement = $db->prepare("SELECT*FROM `category`");
         $statement->execute();
         $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+        $statement->closeCursor();
+        Database::disconnect();
 
         if(sizeof($result) > 0)
         {
